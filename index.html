@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <style>
+
+      .grayscale-svg {
+         filter: brightness(0) invert(1) grayscale(100%);
+       }
+       .thumbnail {
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .thumbnail.active {
+      opacity: 0.7; /* Adjust the opacity as needed */
+    }
+
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>E-commerce Product Page</title>
+  </head>
+  <body class="px-[10rem]">
+    <div
+      id="header"
+      class="flex flex-row justify-between border-b-2 border-b-silver pt-6 pb-4"
+    >
+      <div id="nav" class="flex">
+        <h3 class="inline text-2xl font-bold leading-4">sneakers</h3>
+        <ul class="flex flex-row gap-8 pl-10 text-gray-600">
+          <li>Collections</li>
+          <li>Men</li>
+          <li>Women</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+
+      <div id="avatar flex flex-row">
+        <img src="/images/icon-cart.svg" width="20px"  alt="cart-logo" class="inline-block mr-8" />
+        <img src="images/image-avatar.png" width="40px" alt="my-avatar" class="inline-block" />
+      </div>
+    </div>
+    
+    <!-- Product Details -->
+    <!-- Product Image Section -->
+    <div id="product-image" class=" flex flex-row space-between pt-12 px-4">
+      <div class="product-img w-[50%] text-center">
+        <img src="images/image-product-1.jpg" width="400px" id="largeImage" class="rounded-lg" alt="sneakers-img">
+
+        <div id="product-images" class="flex flex-row w-[400px] justify-between mt-4">
+          <img src="images/image-product-1-thumbnail.jpg" class="w-[75px] rounded-lg cursor-pointer thumbnail" alt="product-images">
+          <img src="images/image-product-2-thumbnail.jpg" class="w-[75px] rounded-lg cursor-pointer thumbnail" alt="product-images">
+          <img src="images/image-product-3-thumbnail.jpg" class="w-[75px] rounded-lg cursor-pointer thumbnail" alt="product-images">
+          <img src="images/image-product-4-thumbnail.jpg" class="w-[75px] rounded-lg cursor-pointer thumbnail" alt="product-images">
+        </div>
+  
+
+      </div>
+      
+
+    <!-- Product Details Section -->
+      <div class="product-info w-[50%] flex flex-col py-6">
+
+        <p class="text-[13px] font-[600] text-[#ff8529] inline-block" >SNEAKER COMPANY</p>
+        <h2 class="text-4xl font-[700] text-[#1e1e28] w-[350px] mt-4" >Fall Limited Edition Sneakers</h2>
+        <p class="w-[400px] text-[#857979] font-[400] text-[16px] tracking-wide mt-6" >These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer</p>
+        <p class="text-2xl font-bold mt-4">$125.00 <span class="ml-5 mb-2 py-1 px-2 text-[15px] font-[500] bg-orange-100 inline text-orange-500" >50%</span> </p> 
+        <p class="line-through font-[700] text-[15px] text-[#b6bcc8]">$250.00 </p> 
+
+        <div class="flex flex-row mt-3">
+          <div class="bg-slate-50 w-[140px] rounded-md px-3 py-2 flex flex-row justify-between relative align-center items-center">
+            <img src="/images/icon-minus.svg" id="minusIcon" alt="minus icon" class="cursor-pointer w-[12px] h-[6px]">
+          <p id="valueDisplay">0</p> 
+          <img src="/images/icon-plus.svg" id="plusIcon" alt="add icon" class="cursor-pointer w-[10px] h-[10px]">
+          </div>
+
+          <button class="flex items-center font-semibold text-white bg-[#ff7d1b] py-3 px-20 ml-4 shadow-lg shadow-[#ff7d1b] rounded-lg font-semibold text-[18px] ">
+            <span>
+            <img src="images/icon-cart.svg" class="grayscale-svg mr-4" width="20px" alt="">
+          </span> 
+          <span class="text-[14px] font-bold">Add to Cart</span>
+        </button>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </body>
+  <script>
+     const largeImage = document.getElementById('largeImage');
+     const thumbnails = document.querySelectorAll('.thumbnail');
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', () => {
+        thumbnails.forEach(t => t.classList.remove('active'));
+
+        thumbnail.classList.add('active');
+
+        largeImage.src = thumbnail.src.replace('-thumbnail', '');
+        console.log('largeImage.src',largeImage.src);
+      });
+    });
+
+    const minusIcon = document.getElementById('minusIcon');
+    const plusIcon = document.getElementById('plusIcon');
+    const valueDisplay = document.getElementById('valueDisplay');
+    
+    minusIcon.addEventListener('click', () => {
+      // Parse the current value and subtract 1
+      let currentValue = parseInt(valueDisplay.innerText);
+      valueDisplay.innerText = Math.max(0, currentValue - 1); 
+    });
+
+    // Add event listener to the plus icon
+    plusIcon.addEventListener('click', () => {
+      // Parse the current value and add 1
+      let currentValue = parseInt(valueDisplay.innerText);
+      valueDisplay.innerText = currentValue + 1;
+    });
+  </script>
+
+</html>
